@@ -1,0 +1,22 @@
+fctest : device "Fadecandy Test Model" (0 0)
+(
+    NewBlendMul3 : blendmul "NewBlendMul3" (730 289)
+    NewCheckerboard3 : checkerboard "NewCheckerboard3" (657 186) 64 8 4
+    NewBlendAdd : blendadd "NewBlendAdd" (483 355)
+    BlueFlashNote : midinote "BlueFlashNote" (719 58) 61 0.04 0.04 0.7 0.04
+    BlueFlash : solidcolor "BlueFlash" (802 178) 64 8 0 128 255
+    RedFlash : solidcolor "RedFlash" (113.5 230) 64 8 255 0 0
+    NewFadecandy : fadecandy "MAGNUS' FUCKING FACE" (447.5 494.5) "127.0.0.1" 7890
+    RedFlashNote : midinote "RedFlashNote" (112.5 145) 60 0.04 0.1 0.3 0.1
+    NewMidiInput : midiinput "NewMidiInput" (151.5 19)
+    
+    NewCheckerboard3.Output -> NewBlendMul3.Image1
+    NewBlendMul3.Output -> NewBlendAdd.Image2
+    BlueFlash.Output -> NewBlendMul3.Image2
+    NewBlendAdd.Output -> NewFadecandy.Right
+    RedFlash.Output -> NewBlendAdd.Image1
+    BlueFlashNote.Output -> BlueFlash.Brightness
+    NewMidiInput.Output -> BlueFlashNote.Midi
+    RedFlashNote.Output -> RedFlash.Brightness
+    NewMidiInput.Output -> RedFlashNote.Midi
+)
