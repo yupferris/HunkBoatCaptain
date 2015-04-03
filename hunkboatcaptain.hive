@@ -1,10 +1,14 @@
 fctest : device "Fadecandy Test Model" (0 0)
 (
+    NewPlasma : plasma "NewPlasma" (971 417) 64 8
+    NewCheckerboard : checkerboard "NewCheckerboard" (1046 252) 64 8 4
+    PinkFlash : solidcolor "PinkFlash" (1019 169) 64 8 255 0 255
+    PinkFlashNote : midinote "PinkFlashNote" (1019 104) 63 0.001 0.1 1 0.001
     EyesBlinkNote : midinote "EyesBlinkNote" (132 119) 49 0.05 0 1 0.05
     EyesNote : midinote "EyesNote" (19 117) 48 0.004 0 1 0.004
-    Eyes : eyes "Eyes" (57 217) 32 32 4 10 22
-    RedFlashNote : midinote "RedFlashNote" (287.5 120) 60 0.04 0.1 0.3 0.1
-    RedFlash : solidcolor "RedFlash" (290.5 192) 64 8 255 0 0
+    Eyes : eyes "Eyes" (69 183) 64 8 4 10 22
+    RedFlashNote : midinote "RedFlashNote" (275.5 120) 60 0.04 0.1 0.3 0.1
+    RedFlash : solidcolor "RedFlash" (271.5 185) 64 8 255 0 0
     BlueFlashBlend : blendmul "BlueFlashBlend" (550 240)
     BlueFlashNote : midinote "BlueFlashNote" (594 100) 61 0.04 0.04 0.7 0.04
     BlueFlash : solidcolor "BlueFlash" (552 172) 64 8 0 128 255
@@ -12,16 +16,18 @@ fctest : device "Fadecandy Test Model" (0 0)
     BlueFlashCheckerboard : checkerboard "BlueFlashCheckerboard" (413 172) 64 8 4
     OrangeFlash : solidcolor "OrangeFlash" (726 164) 64 8 255 150 0
     OrangeFlashNote : midinote "OrangeFlashNote" (724 100) 62 0.04 0.1 0.3 0.1
-    OrangeFlashPlasma : plasma "OrangeFlashPlasma" (833 101) 32 32
-    OrangeFlashBlend : blendmul "OrangeFlashBlend" (775 232)
+    OrangeFlashPlasma : plasma "OrangeFlashPlasma" (833 101) 64 8
+    OrangeFlashBlend : blendmul "OrangeFlashBlend" (784 229)
     RedBlueFlashAdd : blendadd "RedBlueFlashAdd" (375 414)
     RedBlueOrangeBlendAdd : blendadd "RedBlueOrangeBlendAdd" (489 413)
-    EyesBlendAdd : blendadd "EyesBlendAdd" (667 413)
+    EyesBlendAdd : blendadd "EyesBlendAdd" (760 411)
     NewMidiInput : midiinput "NewMidiInput" (667.5 8)
-    NewFadecandy : fadecandy "MAGNUS' FUCKING FACE" (376.5 542.5) "127.0.0.1" 7890
+    NewFadecandy : fadecandy "MAGNUS' FUCKING FACE" (740.5 525.5) "127.0.0.1" 7890
     
     EyesBlendAdd.Output -> NewFadecandy.Head
     EyesBlendAdd.Output -> NewFadecandy.Right
+    PinkFlashNote.Output -> PinkFlash.Brightness
+    NewMidiInput.Output -> PinkFlashNote.Midi
     Eyes.Output -> EyesBlendAdd.Image2
     RedBlueOrangeBlendAdd.Output -> EyesBlendAdd.Image1
     OrangeFlashBlend.Output -> RedBlueOrangeBlendAdd.Image2
