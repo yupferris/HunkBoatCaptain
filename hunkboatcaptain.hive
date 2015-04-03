@@ -10,17 +10,28 @@ fctest : device "Fadecandy Test Model" (0 0)
     BlueFlash : solidcolor "BlueFlash" (552 172) 64 8 0 128 255
     BlueFlashChaser : chaser "BlueFlashChaser" (550 308) 61 0.04 0.3 0.1 0.1
     BlueFlashCheckerboard : checkerboard "BlueFlashCheckerboard" (413 172) 64 8 4
-    OrangeFlash : solidcolor "OrangeFlash" (734 167) 64 8 255 128 0
-    OrangeFlashNote : midinote "OrangeFlashNote" (732 100) 60 0.04 0.1 0.3 0.1
-    RedBlueFlashAdd : blendadd "RedBlueFlashAdd" (382 374)
+    OrangeFlash : solidcolor "OrangeFlash" (726 164) 64 8 255 150 0
+    OrangeFlashNote : midinote "OrangeFlashNote" (724 100) 62 0.04 0.1 0.3 0.1
+    OrangeFlashPlasma : plasma "OrangeFlashPlasma" (833 101) 32 32
+    OrangeFlashBlend : blendmul "OrangeFlashBlend" (775 232)
+    RedBlueFlashAdd : blendadd "RedBlueFlashAdd" (375 414)
+    RedBlueOrangeBlendAdd : blendadd "RedBlueOrangeBlendAdd" (489 413)
+    EyesBlendAdd : blendadd "EyesBlendAdd" (667 413)
     NewMidiInput : midiinput "NewMidiInput" (667.5 8)
     NewFadecandy : fadecandy "MAGNUS' FUCKING FACE" (376.5 542.5) "127.0.0.1" 7890
     
+    EyesBlendAdd.Output -> NewFadecandy.Head
+    EyesBlendAdd.Output -> NewFadecandy.Right
+    Eyes.Output -> EyesBlendAdd.Image2
+    RedBlueOrangeBlendAdd.Output -> EyesBlendAdd.Image1
+    OrangeFlashBlend.Output -> RedBlueOrangeBlendAdd.Image2
+    OrangeFlashPlasma.Output -> OrangeFlashBlend.Image2
+    OrangeFlash.Output -> OrangeFlashBlend.Image1
+    RedBlueFlashAdd.Output -> RedBlueOrangeBlendAdd.Image1
     OrangeFlashNote.Output -> OrangeFlash.Brightness
     NewMidiInput.Output -> OrangeFlashNote.Midi
     BlueFlashChaser.Output -> RedBlueFlashAdd.Image2
     BlueFlashBlend.Output -> BlueFlashChaser.Image
-    RedBlueFlashAdd.Output -> NewFadecandy.Right
     NewMidiInput.Output -> RedFlashNote.Midi
     NewMidiInput.Output -> BlueFlashChaser.Midi
     EyesBlinkNote.Output -> Eyes.Blink
