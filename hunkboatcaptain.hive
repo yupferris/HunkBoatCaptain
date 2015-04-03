@@ -1,11 +1,17 @@
 fctest : device "Fadecandy Test Model" (0 0)
 (
+    NewBlendAdd1 : blendadd "NewBlendAdd1" (986 412)
+    NewSolidColor1 : solidcolor "NewSolidColor1" (1414 167) 64 8 255 255 255
+    NewMidiNote1 : midinote "NewMidiNote1" (1416 94) 65 0.04 0.9 0.2 0.1
+    NewBlendAdd : blendadd "NewBlendAdd" (871 413)
+    NewSolidColor : solidcolor "NewSolidColor" (1255 168) 64 8 255 255 0
+    NewMidiNote : midinote "NewMidiNote" (1257 97) 64 0.04 0.1 0.3 0.1
     PinkFinalBlendAdd : blendadd "PinkFinalBlendAdd" (644 412)
-    PinkChaser : chaser "PinkChaser" (1021 301) 63 0.001 1.4 0 0.1
-    NewBlendMul : blendmul "NewBlendMul" (1019 234)
-    NewCheckerboard : checkerboard "NewCheckerboard" (1136 170) 64 8 10
-    PinkFlash : solidcolor "PinkFlash" (1019 169) 64 8 255 0 255
-    PinkFlashNote : midinote "PinkFlashNote" (1019 104) 63 0.001 1.1 1 0.001
+    PinkChaser : chaser "PinkChaser" (1008 295) 63 0.001 1.4 0 0.1
+    NewBlendMul : blendmul "NewBlendMul" (1004 231)
+    NewCheckerboard : checkerboard "NewCheckerboard" (1116 166) 64 8 10
+    PinkFlash : solidcolor "PinkFlash" (1004 167) 64 8 255 0 255
+    PinkFlashNote : midinote "PinkFlashNote" (1004 100) 63 0.001 1.1 1 0.001
     EyesBlinkNote : midinote "EyesBlinkNote" (132 119) 49 0.05 0 1 0.05
     EyesNote : midinote "EyesNote" (19 117) 48 0.004 0 1 0.004
     Eyes : eyes "Eyes" (69 183) 64 8 4 10 22
@@ -24,9 +30,18 @@ fctest : device "Fadecandy Test Model" (0 0)
     RedBlueOrangeBlendAdd : blendadd "RedBlueOrangeBlendAdd" (489 413)
     EyesBlendAdd : blendadd "EyesBlendAdd" (760 411)
     NewMidiInput : midiinput "NewMidiInput" (667.5 8)
-    NewFadecandy : fadecandy "MAGNUS' FUCKING FACE" (740.5 525.5) "127.0.0.1" 7890
+    NewFadecandy : fadecandy "MAGNUS' FUCKING FACE" (963.5 503.5) "127.0.0.1" 7890
     
-    EyesBlendAdd.Output -> NewFadecandy.Right
+    NewBlendAdd1.Output -> NewFadecandy.Head
+    NewBlendAdd1.Output -> NewFadecandy.Right
+    NewBlendAdd.Output -> NewBlendAdd1.Image2
+    NewSolidColor1.Output -> NewBlendAdd1.Image1
+    NewMidiNote1.Output -> NewSolidColor1.Brightness
+    NewMidiInput.Output -> NewMidiNote1.Midi
+    NewSolidColor.Output -> NewBlendAdd.Image2
+    EyesBlendAdd.Output -> NewBlendAdd.Image1
+    NewMidiNote.Output -> NewSolidColor.Brightness
+    NewMidiInput.Output -> NewMidiNote.Midi
     PinkFinalBlendAdd.Output -> EyesBlendAdd.Image1
     PinkChaser.Output -> PinkFinalBlendAdd.Image2
     RedBlueOrangeBlendAdd.Output -> PinkFinalBlendAdd.Image1
@@ -34,7 +49,6 @@ fctest : device "Fadecandy Test Model" (0 0)
     NewBlendMul.Output -> PinkChaser.Image
     NewCheckerboard.Output -> NewBlendMul.Image2
     PinkFlash.Output -> NewBlendMul.Image1
-    EyesBlendAdd.Output -> NewFadecandy.Head
     PinkFlashNote.Output -> PinkFlash.Brightness
     NewMidiInput.Output -> PinkFlashNote.Midi
     Eyes.Output -> EyesBlendAdd.Image2
