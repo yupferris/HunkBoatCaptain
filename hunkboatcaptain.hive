@@ -3,19 +3,23 @@ fctest : device "Fadecandy Test Model" (0 0)
     EyesBlinkNote : midinote "EyesBlinkNote" (132 119) 49 0.05 0 1 0.05
     EyesNote : midinote "EyesNote" (19 117) 48 0.004 0 1 0.004
     Eyes : eyes "Eyes" (57 217) 32 32 4 10 22
-    NewBlendMul3 : blendmul "NewBlendMul3" (552 243)
-    NewCheckerboard3 : checkerboard "NewCheckerboard3" (469 101) 64 8 4
-    RedBlueFlashAdd : blendadd "RedBlueFlashAdd" (382 374)
+    RedFlashNote : midinote "RedFlashNote" (287.5 120) 60 0.04 0.1 0.3 0.1
+    RedFlash : solidcolor "RedFlash" (290.5 192) 64 8 255 0 0
+    BlueFlashBlend : blendmul "BlueFlashBlend" (550 240)
     BlueFlashNote : midinote "BlueFlashNote" (594 100) 61 0.04 0.04 0.7 0.04
     BlueFlash : solidcolor "BlueFlash" (552 172) 64 8 0 128 255
     BlueFlashChaser : chaser "BlueFlashChaser" (550 308) 61 0.04 0.3 0.1 0.1
-    RedFlash : solidcolor "RedFlash" (290.5 192) 64 8 255 0 0
+    BlueFlashCheckerboard : checkerboard "BlueFlashCheckerboard" (413 172) 64 8 4
+    OrangeFlash : solidcolor "OrangeFlash" (734 167) 64 8 255 128 0
+    OrangeFlashNote : midinote "OrangeFlashNote" (732 100) 60 0.04 0.1 0.3 0.1
+    RedBlueFlashAdd : blendadd "RedBlueFlashAdd" (382 374)
+    NewMidiInput : midiinput "NewMidiInput" (667.5 8)
     NewFadecandy : fadecandy "MAGNUS' FUCKING FACE" (376.5 542.5) "127.0.0.1" 7890
-    RedFlashNote : midinote "RedFlashNote" (287.5 120) 60 0.04 0.1 0.3 0.1
-    NewMidiInput : midiinput "NewMidiInput" (459.5 15)
     
+    OrangeFlashNote.Output -> OrangeFlash.Brightness
+    NewMidiInput.Output -> OrangeFlashNote.Midi
     BlueFlashChaser.Output -> RedBlueFlashAdd.Image2
-    NewBlendMul3.Output -> BlueFlashChaser.Image
+    BlueFlashBlend.Output -> BlueFlashChaser.Image
     RedBlueFlashAdd.Output -> NewFadecandy.Right
     NewMidiInput.Output -> RedFlashNote.Midi
     NewMidiInput.Output -> BlueFlashChaser.Midi
@@ -23,8 +27,8 @@ fctest : device "Fadecandy Test Model" (0 0)
     NewMidiInput.Output -> EyesBlinkNote.Midi
     NewMidiInput.Output -> EyesNote.Midi
     EyesNote.Output -> Eyes.Brightness
-    NewCheckerboard3.Output -> NewBlendMul3.Image1
-    BlueFlash.Output -> NewBlendMul3.Image2
+    BlueFlashCheckerboard.Output -> BlueFlashBlend.Image1
+    BlueFlash.Output -> BlueFlashBlend.Image2
     RedFlash.Output -> RedBlueFlashAdd.Image1
     BlueFlashNote.Output -> BlueFlash.Brightness
     NewMidiInput.Output -> BlueFlashNote.Midi
